@@ -1,0 +1,93 @@
+<!-- admin-login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login</title>
+<!-- Include Tailwind CSS -->
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<style>
+  .login-btn{
+    background-color: #31C48D;
+  }
+</style>
+</head>
+<body class="bg-gray-100">
+  <section>
+    <nav   style="background-color: #25312d;" class=  " h-24 p-4">
+      <div class="  mx-auto flex justify-between items-center">
+        <!-- Brand Logo -->
+        <a href="#" class="text-white font-bold text-4xl">କୃଷି ସହାୟକ</a>
+    
+        <!-- Navigation Links -->
+        <ul class="flex     items-center   space-x-4">
+          <li><a href="http://localhost:4200/home" class="text-white hover:text-gray-300  font-semibold  mt-4  text-2xl">Home</a></li>
+          <li><a href="http://localhost:4200/about" class="text-white hover:text-gray-300  font-semibold  text-2xl">About</a></li>
+           <li><a href="http://localhost:4200/contact" class="text-white hover:text-gray-300  font-semibold  text-2xl">Contact</a></li>
+            
+         <li>   <button class="mt-3 mx-4 pb-3 "> <a   href="#" style="background-color: #7A9578;   "
+                 class="px-4 py-3 text-xl border border-black rounded-lg mt-4  font-semibold">
+                 Login | SignUp</a>  </button> 
+          </li>
+
+          
+        </ul>
+      </div>
+    </nav>
+  </section>
+
+  <!-- -->
+<div class="container mx-auto max-w-md mt-20">
+<h1 class="text-3xl font-semibold text-center">Admin Login</h1>
+<form class="mt-8 space-y-6" action="/admin/login" method="POST">
+  <div>
+    <label for="token" class="block text-sm font-medium text-gray-700">Token:</label>
+    <input type="text" id="token" name="token" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+  </div>
+  <div>
+    <label for="password" class="block text-sm font-medium text-gray-700">Password:</label>
+    <input type="password" id="password" name="password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+  </div>
+  <div>
+    <button  type="submit" class="w-full login-btn font-bold text-white py-2 px-4 mt-6 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 mb-12">Login</button>
+  </div>
+</form>
+</div>
+<!-- Footer -->
+<footer    style="background-color: black;" class="mt-4 bg-dark dark:bg-black">
+  <div class="mx-auto w-full max-w-screen-xl p-3 py-6 lg:py-6">
+    <div class="md:flex md:justify-between">
+      <div class="mb-4 md:mb-0">
+        <a href="#" class="flex items-center">
+          <!-- <img src="./assets/Navbar-Icon.jpeg" class="h-6 me-3" alt="Krishi-Sahayak-Logo" /> -->
+          <div class="self-center   font-semibold whitespace-nowrap text-3xl ml-6 mt-6 " style="color: white;">କୃଷି
+            ସହାୟକ</div>
+        </a>
+      </div>
+      <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+        <div>
+          <h2 class="mb-6 text-lg  mr-0  font-semibold text-white uppercase mt-2 dark:text-white">Resources</h2>
+          <ul class="text-gray-500 dark:text-gray-400 font-medium">
+
+
+          </ul>
+        </div>
+        <div>
+          <h2 class="mb-5 text-lg  mr-0 font-semibold text-white uppercase mt-2   dark:text-white">Follow us</h2>
+          <ul class="text-gray-500 dark:text-gray-400 font-medium">
+
+
+          </ul>
+        </div>
+
+      </div>
+    </div>
+    <div class=" mr-6 text-white  text-center mb-4">© 2024 Krishi Sahayta. All rights reserved. | Privacy Policy |
+      Terms of Service | Contact Us</div>
+
+  </div>
+</footer>
+</body>
+</html>

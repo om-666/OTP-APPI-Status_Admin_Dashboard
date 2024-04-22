@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin Dashboard</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Body styles */
+      body {
+        /* text-align: center; */
+        background-color: #f5f5f5; /* Changed background color to a light gray */
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      /* Container styles */
+      .container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Table styles */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #ccc;
+        padding: 12px;
+        text-align: left;
+      }
+
+      /* Search input styles */
+      .search-container {
+        margin-bottom: 20px;
+      }
+
+      .search-container input[type="text"] {
+        padding: 10px;
+        margin-right: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      .search-container button {
+        padding: 10px 20px;
+        background-color: #31c48d; /* Changed button background color to the provided color */
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .search-container button:hover {
+        background-color: #218f6b; /* Darker shade of the provided color on hover */
+      }
+
+      /* Update button styles */
+      .update-btn {
+        background-color: #31c48d; /* Changed button background color to the provided color */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+
+      .update-btn:hover {
+        background-color: #218f6b; /* Darker shade of the provided color on hover */
+      }
+
+      /* Modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        width: 80%;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      /* Responsive styles */
+      @media screen and (max-width: 768px) {
+        .container {
+          padding: 10px;
+        }
+
+        .search-container input[type="text"] {
+          width: calc(100% - 120px); /* Adjusted width of the input field */
+        }
+
+        .search-container button,
+        .update-btn {
+          padding: 8px 16px; /* Reduced padding for smaller screens */
+        }
+      }
+
+
+      /* Search input styles */
+      .search-container {
+        margin-bottom: 20px;
+      }
+
+      .search-container input[type="text"] {
+        padding: 12px; /* Increased padding for better spacing */
+        margin-right: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        width: 70%; /* Increased width of the search input */
+      }
+
+      .search-container button {
+        padding: 12px 20px; /* Increased padding for better spacing */
+        background-color: #31c48d;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 28%; /* Decreased width of the search button */
+      }
+
+      /* Update button styles */
+      .update-btn {
+        background-color: #31c48d;
+        color: white;
+        border: none;
+        padding: 12px 20px; /* Increased padding for better spacing */
+        cursor: pointer;
+        border-radius: 4px;
+      }
+
+      /* Responsive styles */
+      @media screen and (max-width: 768px) {
+        .container {
+          padding: 10px;
+        }
+
+        .search-container input[type="text"] {
+          width: calc(100% - 120px);
+        }
+
+        .search-container button,
+        .update-btn {
+          padding: 10px 16px; /* Adjusted padding for smaller screens */
+        }
+      }
+
+      /* Heading styles */
+      h2 {
+        font-size: 24px; /* Increase font size */
+        margin-bottom: 20px; /* Add margin between heading and table */
+      }
+
+      /* Claim Verification title styles */
+      h1#claim-verification {
+        font-size: 28px; /* Increase font size */
+        margin-top: 20px; /* Add margin between previous content and title */
+      }
+
+      /* Result display div styles */
+      #verification-result {
+        background-color: #f5f5f5; /* Light gray background color */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 20px;
+        margin-top: 20px; /* Add margin between title and result div */
+        font-size: large;
+        font-weight: 900;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <section>
+        <nav   style="background-color: #25312d;" class=  " h-24 p-4">
+          <div class="  mx-auto flex justify-between items-center">
+            <!-- Brand Logo -->
+            <a href="#" class="text-white font-bold text-4xl">କୃଷି ସହାୟକ</a>
+        
+            <!-- Navigation Links -->
+            <ul class="flex     items-center   space-x-4">
+              <li><a href="http://localhost:4200/home" class="text-white hover:text-gray-300  font-semibold  mt-4  text-2xl">Home</a></li>
+              <li><a href="http://localhost:4200/about" class="text-white hover:text-gray-300  font-semibold  text-2xl">About</a></li>
+               <li><a href="http://localhost:4200/contact" class="text-white hover:text-gray-300  font-semibold  text-2xl">Contact</a></li>
+                
+             <li>   <button class="mt-3 mx-4 pb-3 "> <a   href="#" style="background-color: #7A9578;   "
+                     class="px-4 py-3 text-xl border border-black rounded-lg mt-4  font-semibold">
+                     Login | SignUp</a>  </button> 
+              </li>
+    
+              
+            </ul>
+          </div>
+        </nav>
+        
+       </section>
+    </section>
+    <h1 class="text-3xl font-bold my-4 text-center">Admin Dashboard</h1>
+    <h2>Claim Information</h2>
+    <div class="search-container">
+      <input
+        id="search-input"
+        type="text"
+        placeholder="Search by Claim Type or Name"
+      />
+      <button
+        onclick="search()"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
+      >
+        Search
+      </button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Claim ID</th>
+          <th>Name</th>
+          <th>Claim Type</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="claims-table-body">
+        <!-- Claims will be dynamically inserted here -->
+      </tbody>
+    </table>
+
+    <h2 id="claim-verification" class="mt-6">Claim Verification</h2>
+
+    <div class="search-container">
+      <input id="search-claim-id" type="text" placeholder="Enter Claim ID" />
+      <button
+        onclick="verifyClaim()"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
+      >
+        Search
+      </button>
+    </div>
+    <div id="verification-result" class="text-center"></div>
+
+    <!-- <div id="weatherTable"></div> -->
+
+    <!-- Footer -->
+    <footer style="background-color:black;" class="mt-4 bg-dark dark:bg-black">
+      <div class="mx-auto w-full max-w-screen-xl p-3 py-6 lg:py-6">
+        <div class="md:flex md:justify-between">
+          <div class="mb-4 md:mb-0">
+            <a href="#" class="flex items-center">
+              <!-- <img src="./assets/Navbar-Icon.jpeg" class="h-6 me-3" alt="Krishi-Sahayak-Logo" /> -->
+              <div class="self-center   font-semibold whitespace-nowrap text-3xl ml-6 mt-6 " style="color: white;">କୃଷି
+                ସହାୟକ</div>
+            </a>
+          </div>
+          <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+            <div>
+              <h2 class="mb-6 text-lg  mr-0  font-semibold text-white uppercase mt-2 dark:text-white">Resources</h2>
+              <ul class="text-gray-500 dark:text-gray-400 font-medium">
+  
+  
+              </ul>
+            </div>
+            <div>
+              <h2 class="mb-5 text-lg  mr-0 font-semibold text-white uppercase mt-2   dark:text-white">Follow us</h2>
+              <ul class="text-gray-500 dark:text-gray-400 font-medium">
+  
+  
+              </ul>
+            </div>
+  
+          </div>
+        </div>
+        <div class=" mr-6 text-white  text-center mb-4">© 2024 Krishi Sahayta. All rights reserved. | Privacy Policy |
+          Terms of Service | Contact Us</div>
+  
+      </div>
+    </footer>
+
+    <script>
+      fetch("/admin/claims")
+        .then((response) => response.json())
+        .then((claims) => {
+          const tableBody = document.getElementById("claims-table-body");
+          claims.forEach((claim) => {
+            const row = document.createElement("tr");
+            row.id = `row-${claim._id}`;
+            row.innerHTML = `
+            <td>${claim._id}</td>
+            <td>${claim.name}</td>
+            <td>${claim.claim_type}</td>
+            <td>${claim.amount}</td>
+            <td>${claim.status}</td>
+            <td>
+              <select id="status-${claim._id}">
+                <option value="Under Processing">Under Processing</option>
+                <option value="Approved">Approved</option>
+                <option value="Received">Received</option>
+              </select>
+              <button onclick="updateStatus('${claim._id}')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded">Update</button>
+            </td>
+          `;
+            tableBody.appendChild(row);
+          });
+        });
+
+      async function search() {
+        const searchValue = document
+          .getElementById("search-input")
+          .value.trim()
+          .toLowerCase();
+        const claims = document.querySelectorAll("#claims-table-body tr");
+        claims.forEach(async (claim) => {
+          const claimId = claim
+            .querySelector("td:nth-child(1)")
+            .textContent.toLowerCase();
+          const name = claim
+            .querySelector("td:nth-child(2)")
+            .textContent.toLowerCase();
+          const claimType = claim
+            .querySelector("td:nth-child(3)")
+            .textContent.toLowerCase();
+          const shouldShow =
+            claimId.includes(searchValue) ||
+            name.includes(searchValue) ||
+            claimType.includes(searchValue);
+          claim.style.display = shouldShow ? "table-row" : "none";
+
+          if (claimId.includes(searchValue)) {
+            getLocation_CauseOfLoss(claimId);
+          }
+        });
+      }
+
+      function verifyCauseOfLoss(causeOfLoss) {
+        console.log("Cause of loss inside verifyCauseOfLoss-" + causeOfLoss);
+        const weatherParameters = {
+          drought: [
+            "precipitation",
+            "soil_moisture_0_to_7cm",
+            "soil_moisture_7_to_28cm",
+            "soil_moisture_28_to_100cm",
+            "soil_moisture_100_to_255cm",
+            "et0_fao_evapotranspiration",
+            "temperature_2m",
+          ],
+          flood: [
+            "precipitation",
+            "soil_moisture_0_to_7cm",
+            "soil_moisture_7_to_28cm",
+            "soil_moisture_28_to_100cm",
+            "soil_moisture_100_to_255cm",
+            "relative_humidity_2m",
+            "cloud_cover",
+            "surface_pressure",
+          ],
+          frost: [
+            "temperature_2m",
+            "dew_point_2m",
+            "cloud_cover",
+            "surface_pressure",
+          ],
+          hailstorm: [
+            "temperature_2m",
+            "relative_humidity_2m",
+            "wind_gusts_10m",
+            "cloud_cover",
+          ],
+          windstorm: [
+            "wind_gusts_10m",
+            "wind_direction_10m",
+            "wind_direction_100m",
+            "surface_pressure",
+          ],
+          excessive_heat: [
+            "temperature_2m",
+            "dew_point_2m",
+            "apparent_temperature",
+            "cloud_cover",
+          ],
+          excessive_rainfall: [
+            "precipitation",
+            "cloud_cover",
+            "relative_humidity_2m",
+            "wind_gusts_10m",
+          ],
+        };
+        const thresholdValues = {
+          drought: 100, // Adjust threshold values accordingly
+          flood: 200,
+          frost: 20,
+          hailstorm: 30,
+          windstorm: 40,
+          excessive_heat: 25,
+          excessive_rainfall: 50,
+        };
+
+        // Fetch parameter values and calculate collective value
+        const parametersToCheck = weatherParameters[causeOfLoss];
+        let collectiveValue = 0;
+        parametersToCheck.forEach((parameter) => {
+          // Fetch parameter values from weatherTable and compute average
+          // For simplicity, let's assume we have a function to fetch parameter values
+          const parameterValues = fetchParameterValues(parameter);
+          const averageValue = calculateAverage(parameterValues);
+          collectiveValue += averageValue;
+        });
+
+        // Compare collective value with threshold
+        const validationResult =
+          collectiveValue < thresholdValues[causeOfLoss]
+            ? "valid"
+            : "not valid";
+
+        return {
+          parametersChecked: parametersToCheck,
+          validation: validationResult,
+        };
+      }
+
+      function fetchParameterValues(parameter) {
+        const parameterValues = [];
+        const tableRows = document.querySelectorAll("#weatherTable tr");
+
+        tableRows.forEach((row) => {
+          const cells = row.querySelectorAll("td");
+          cells.forEach((cell, index) => {
+            // Assuming the parameter name is in the first column (index 0)
+            if (index === 0 && cell.textContent.trim() === parameter) {
+              // Assuming the parameter value is in the remaining columns
+              for (let i = 1; i < cells.length; i++) {
+                parameterValues.push(parseFloat(cells[i].textContent.trim()));
+              }
+            }
+          });
+        });
+
+        return parameterValues;
+      }
+      function calculateAverage(parameterValues) {
+        const sum = parameterValues.reduce((acc, value) => acc + value, 0);
+        const average = sum / parameterValues.length;
+        return average;
+      }
+
+      async function verifyClaim() {
+        const claimId = document.getElementById("search-claim-id").value;
+        const { state, Cause_of_loss } = await getLocation_CauseOfLoss(claimId);
+        const coordinates = await getCoordinates(state);
+        if (coordinates) {
+          const { latitude, longitude } = coordinates;
+          console.log("Latitude:", latitude);
+          console.log("Longitude:", longitude);
+
+          try {
+            const response = await fetch(
+              `/weather?latitude=${latitude}&longitude=${longitude}`
+            );
+            const weatherData = await response.json();
+            console.log("Weather Data:", weatherData);
+
+            // Verify the cause of loss
+            const verificationResult = verifyCauseOfLoss(Cause_of_loss);
+
+            // Log the list of parameters being checked
+            console.log(
+              "Parameters checked:",
+              verificationResult.parametersChecked
+            );
+
+            // Update the verification result div
+            const verificationDiv = document.getElementById(
+              "verification-result"
+            );
+            verificationDiv.textContent = `Cause of Loss: ${Cause_of_loss}, Status: ${verificationResult.validation}`;
+            // displayWeatherTable(weatherData.hourly, verificationResult.parametersChecked);
+          } catch (error) {
+            console.error("Error fetching weather data:", error);
+          }
+        } else {
+          console.log("Coordinates not found for the state:", location);
+        }
+      }
+
+      async function getLocation_CauseOfLoss(claimId) {
+        //const claimId = document.getElementById("search-claim-id").value;
+        console.log(`fetching state of ${claimId}...`);
+        try {
+          const response = await fetch(`/api/get-state?claimId=${claimId}`);
+          const data = await response.json();
+          console.log("Location:", data.state);
+          console.log("Cause of Loss:", data.Cause_of_loss);
+          return { state: data.state, Cause_of_loss: data.Cause_of_loss };
+        } catch (error) {
+          console.error("Error fetching state from API:", error);
+        }
+      }
+      async function getCoordinates(location) {
+        try {
+          const geocodeResponse = await fetch("/api/geocode");
+          const geocodeData = await geocodeResponse.json();
+          const coordinates = geocodeData[location];
+          if (coordinates) {
+            return coordinates;
+          }
+        } catch (error) {
+          console.error("Error fetching geocode data:", error);
+        }
+      }
+
+      function updateStatus(claimId) {
+        const status = document.getElementById(`status-${claimId}`).value;
+        fetch("/admin/update-status", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ claimId, status }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            alert(data.message);
+            // Refresh the page to update the table
+            location.reload();
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("Failed to update claim status");
+          });
+      }
+
+      function displayWeatherTable(hourlyData, listOfParams) {
+        console.log("Hourly Data:", hourlyData);
+        console.log(
+          "INSIDE displayWeather FUNCTION List of Params:",
+          listOfParams
+        );
+        let table = '<table style="border-collapse: collapse; margin: 20px;">';
+        table +=
+          '<tr><th style="border: 1px solid black; padding: 8px;">Parameter</th>';
+        table += `<th style="border: 1px solid black; padding: 8px;" colspan="${hourlyData.time.length}">Value</th></tr>`;
+        table +=
+          '<tr><td style="border: 1px solid black; padding: 8px;">Time</td>';
+        for (const time of hourlyData.time) {
+          table += `<td style="border: 1px solid black; padding: 8px;">${time}</td>`;
+        }
+        table += "</tr>";
+        for (const [param, values] of Object.entries(hourlyData)) {
+          if (param !== "time") {
+            console.log("param", param);
+            table += "<tr>";
+            table += `<td style="border: 1px solid black; padding: 8px;">${param}</td>`;
+            for (const value of values) {
+              table += `<td style="border: 1px solid black; padding: 8px;">${value}</td>`;
+              console.log("param value", value);
+            }
+            table += "</tr>";
+          }
+        }
+        table += "</table>";
+        document.getElementById("weatherTable").innerHTML = table;
+      }
+    </script>
+  </body>
+</html>
