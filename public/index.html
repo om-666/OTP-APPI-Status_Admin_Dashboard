@@ -227,6 +227,9 @@
     .received {
       background-color: blue;
     }
+    .alert-content {
+  margin: 0; /* Set margin to 0 to reduce space */
+}
   </style>
 </head>
 
@@ -276,22 +279,23 @@
     <div class="alert alert-primary" role="alert" id="status-container">
       <div class="d-flex align-items-center">
         <div class="flex-shrink-0 me-3">
-          <img src="https://i.pinimg.com/originals/38/e7/3f/38e73f3f36af85233c7cb92d2a1f617b.gif" alt="Image"
-            width="50">
+          <img  src="https://i.pinimg.com/originals/38/e7/3f/38e73f3f36af85233c7cb92d2a1f617b.gif" alt="Image"
+            width="80">
         </div>
-        <div class="  text-center px-44 w-2/3">
-          <h4 class="alert-heading text-2xl font-semibold mt-2 mb-4 text-center ml-48">Status Message</h4>
-          <p class="mb-0 ml-48 text-center" id="status-message"></p>
-          <div class="status-circles">
-            <!-- <div class="circle under-processing"></div>
+        <div  class="text-center ml-10 w-10/12">
+          <h4 class="alert-heading text-2xl font-semibold mt-2 mb-4 text-center ">Status Message</h4>
+          <p  class="mb-0  text-center" id="status-message"></p>
+          <!-- <div class="status-circles">
+             <div class="circle under-processing"></div>
             <div class="circle approved"></div>
-            <div class="circle received"></div> -->
-          </div>
+            <div class="circle received"></div>
+          </div> -->
         </div>
       </div>
     </div>
     <!-- <a href="/admin/login" class="btn btn-primary">Admin Login</a> -->
   </div>
+
 
 
   <footer class="mt-4 bg-dark dark:bg-black">
