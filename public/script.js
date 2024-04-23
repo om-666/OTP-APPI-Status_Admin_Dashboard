@@ -21,7 +21,7 @@ form.addEventListener('submit', async (e) => {
   const data = await response.json();
   if (response.ok) {
     statusMessage.innerHTML = `
-    <table class="table">
+    <table class="table" style="margin-left:10px; width:auto">
       <thead>
         <tr>
           <th scope="col">Status</th>
